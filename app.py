@@ -1,6 +1,6 @@
 import streamlit as st
 import pickle
-import speech_recognition as sr
+# import speech_recognition as sr
 import numpy as np
 
 # Page config
@@ -46,21 +46,21 @@ st.write("Analyze emotions from text or voice input")
 
 # Voice input function
 
-def voice_input():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.info("🎤 Speak now...")
-        r.adjust_for_ambient_noise(source, duration=0.5)
-        audio = r.listen(source)
+# def voice_input():
+#     r = sr.Recognizer()
+#     with sr.Microphone() as source:
+#         st.info("🎤 Speak now...")
+#         r.adjust_for_ambient_noise(source, duration=0.5)
+#         audio = r.listen(source)
 
-        try:
-            text = r.recognize_google(audio)
-            return text
-        except sr.UnknownValueError:
-            return ""
-        except sr.RequestError:
-            st.error("Speech recognition service error")
-            return ""
+#         try:
+#             text = r.recognize_google(audio)
+#             return text
+#         except sr.UnknownValueError:
+#             return ""
+#         except sr.RequestError:
+#             st.error("Speech recognition service error")
+#             return ""
 
 # Result display function (WITH CONFIDENCE)
 
@@ -92,20 +92,20 @@ col1, col2 = st.columns(2)
 with col1:
     user_input = st.text_area("✍️ Type your text here")
 
-# Voice input button
+# # Voice input button
 
-st.write("---")
-if st.button("🎤 Voice Input"):
-    spoken_text = voice_input()
+# st.write("---")
+# if st.button("🎤 Voice Input"):
+#     spoken_text = voice_input()
 
-    if spoken_text:
-        st.success(f"🗣️ You said: {spoken_text}")
-        vector = vectorizer.transform([spoken_text.lower()])
-        result = model.predict(vector)[0]
-        confidence = np.max(model.predict_proba(vector)) * 100
-        show_result(result, confidence)
-    else:
-        st.warning("Voice not recognized. Please try again.")
+#     if spoken_text:
+#         st.success(f"🗣️ You said: {spoken_text}")
+#         vector = vectorizer.transform([spoken_text.lower()])
+#         result = model.predict(vector)[0]
+#         confidence = np.max(model.predict_proba(vector)) * 100
+#         show_result(result, confidence)
+#     else:
+#         st.warning("Voice not recognized. Please try again.")
 
 
 with col2:
@@ -130,4 +130,5 @@ if st.button("Analyze Sentiment"):
 # Footer
 
 st.write("---")
+
 st.caption("🚀 AI Project with Streamlit + Machine Learning")
